@@ -1,10 +1,8 @@
 package com.example.firstservice;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +41,34 @@ public class CustomerController {
         }
         return null;
     }
-//    public boolean delCustomerByID(String ID){
-//
-//    }
-//    public boolean delCustomerByName(String n){
-//
-//    }
-//    public boolean addCustomer(String ID, String n, String s, int a){
-//
-//    }
+    @RequestMapping(value = "/customerDelbyID/{id}" , method = RequestMethod.DELETE)
+    public boolean delCustomerByID(@PathVariable("id") String ID){
+        for(Customer item:customers){
+            if(item.getID().equals(ID)){
+               return customers.remove(item);
+            }
+        }
+        return false;
+    }
+    @RequestMapping(value = "/customerDelbyname/{n}" , method = RequestMethod.DELETE)
+    public boolean delCustomerByName(@PathVariable("n") String n){
+        for(Customer item:customers){
+            if(item.getName().equals(n)){
+                 return customers.remove(item);
+            }
+        }
+    return false;
+    }
+    @RequestMapping(value = "/addCustomer" , method = RequestMethod.GET)
+    public boolean addCustomer(@RequestParam("id") String ID, @RequestParam("name")String n,
+                               @RequestParam("sex") String s, @RequestParam("age") int a){
+        customers.add(new Customer(ID,n,s,a));
+        return true;
+    }
+    @RequestMapping(value = "/addCustomer2" , method = RequestMethod.POST)
+    public boolean addCustomer2(@RequestParam("id") String ID, @RequestParam("name")String n,
+                               @RequestParam("sex") String s, @RequestParam("age") int a){
+        customers.add(new Customer(ID,n,s,a));
+        return true;
+    }
 }

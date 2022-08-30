@@ -1,9 +1,6 @@
 package com.example.firstservice;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
@@ -23,14 +20,14 @@ public class MathService {
         return num1-num2;
     }
     @RequestMapping(value =  "/multiply", method = RequestMethod.GET)
-    public double multiply(@PathParam("num1") double num1,
-                           @PathParam("num2") double num2)
+    public double multiply(@RequestParam("num1") double num1,
+                           @RequestParam("num2") double num2)
     {
         return num1 * num2;
     }
     @RequestMapping(value =  "/divide", method = RequestMethod.GET)
-    public double divide(@PathParam("num1") double num1,
-                         @PathParam("num2") double num2)
+    public double divide(@RequestParam("num1") double num1,
+                         @RequestParam("num2") double num2)
     {
         return num1 / num2;
     }
